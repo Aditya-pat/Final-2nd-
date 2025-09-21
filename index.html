@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Homemade Mukhwas</title>
+  <style>
+    :root{
+      --brown:#8B4513;
+      --bg:#f8f3e8;
+    }
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:var(--bg);
+      color:#333;
+    }
+    header{
+      background:var(--brown);
+      color:#fff;
+      padding:14px;
+      text-align:center;
+      position:sticky;
+      top:0;
+    }
+    header h1{margin:0;font-size:18px}
+    .container{max-width:900px;margin:16px auto;padding:0 12px;}
+    .hidden{display:none}
+    .login-box,.notice,.contact,.card,.important{
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,.1);
+      padding:14px;
+      margin-bottom:14px;
+    }
+    .login-box input{
+      width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:6px
+    }
+    .btn{
+      display:inline-block;
+      background:var(--brown);
+      color:#fff;
+      border:none;
+      padding:10px;
+      border-radius:8px;
+      cursor:pointer;
+      text-align:center;
+      width:100%;
+      margin-top:8px;
+    }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .card img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+    .card h3{margin:8px 0;color:var(--brown)}
+    .price{color:green;font-weight:bold;margin:6px 0}
+    select{
+      width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #ccc;
+    }
+    .contact img{width:120px;height:120px;object-fit:contain;border-radius:8px;background:#fff;padding:6px}
+    .small{font-size:13px;color:#555}
+    footer{text-align:center;font-size:13px;color:#555;margin:20px 0}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍬 Homemade Mukhwas Shop</h1>
+  </header>
+
+  <main class="container">
+
+    <!-- Blocked message -->
+    <div id="blocked" class="hidden login-box">
+      <h2>Mobile Only</h2>
+      <p class="small">This shop is available only for Android & iOS users. Please open on your phone.</p>
+    </div>
+
+    <!-- Login -->
+    <div id="login" class="login-box hidden">
+      <h2>Customer Login</h2>
+      <input id="u" placeholder="Username">
+      <input id="p" type="password" placeholder="Password">
+      <button class="btn" onclick="login()">Login</button>
+      <p id="err" class="small" style="color:#b33;display:none">Invalid credentials</p>
+    </div>
+
+    <!-- Shop -->
+    <div id="shop" class="hidden">
+      <div class="notice">
+        <strong>Our Mukhwas Collection</strong>
+        <p class="small">Choose a product, select size, and place order via WhatsApp or Email.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <img src="Images/Mukhwas.jpg" alt="Fennel Mukhwas">
+          <h3>Fennel Mukhwas</h3>
+          <p class="price">₹150 / 200g</p>
+          <select id="size-fennel">
+            <option value="100g">100g</option>
+            <option value="200g" selected>200g</option>
+            <option value="500g">500g</option>
+            <option value="1kg">1kg</option>
+          </select>
+          <button class="btn" onclick="orderNow('Fennel Mukhwas','150','size-fennel')">Order</button>
+        </div>
+
+        <div class="card">
+          <img src="Images/Mukhwas.jpg" alt="Sweet Mukhwas">
+          <h3>Sweet Mukhwas</h3>
+          <p class="price">₹120 / 200g</p>
+          <select id="size-sweet">
+            <option value="100g">100g</option>
+            <option value="200g" selected>200g</option>
+            <option value="500g">500g</option>
+            <option value="1kg">1kg</option>
+          </select>
+          <button class="btn" onclick="orderNow('Sweet Mukhwas','120','size-sweet')">Order</button>
+        </div>
+
+        <div class="card">
+          <img src="Images/Mukhwas.jpg" alt="Mint Mukhwas">
+          <h3>Mint Mukhwas</h3>
+          <p class="price">₹180 / 200g</p>
+          <select id="size-mint">
+            <option value="100g">100g</option>
+            <option value="200g" selected>200g</option>
+            <option value="500g">500g</option>
+            <option value="1kg">1kg</option>
+          </select>
+          <button class="btn" onclick="orderNow('Mint Mukhwas','180','size-mint')">Order</button>
+        </div>
+      </div>
+
+      <div class="important">
+        <h3>⚠️ Important Note</h3>
+        <p>Please make <b>advance payment</b>. After payment, your order will be confirmed.</p>
+      </div>
+
+      <div class="contact">
+        <h3>Payment & Contact</h3>
+        <div style="display:flex;gap:12px;align-items:center">
+          <!-- Replace with your QR -->
+          <img src="Images/Fampay.jpg" alt="Payment QR">
+          <div>
+            <p class="small"><b>WhatsApp:</b> +91 97300 94835</p>
+            <p class="small"><b>Email:</b> <a href="mailto:aftermint97@gmail.com">aftermint97@gmail.com</a></p>
+            <p class="small"><b>UPI:</b> your-adityapatil97@fam</p>
+          </div>
+        </div>
+      </div>
+      <footer>© 2025 Homemade Mukhwas | All Rights Reserved</footer>
+    </div>
+  </main>
+
+  <script>
+    // Detect Android / iOS
+    function isMobile(){
+      return /android|iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    const loginBox=document.getElementById("login");
+    const shop=document.getElementById("shop");
+    const blocked=document.getElementById("blocked");
+
+    if(isMobile()){
+      loginBox.classList.remove("hidden");
+    } else {
+      blocked.classList.remove("hidden");
+    }
+
+    function login(){
+      const u=document.getElementById("u").value.trim();
+      const p=document.getElementById("p").value.trim();
+      if(u==="customer" && p==="admin"){
+        loginBox.classList.add("hidden");
+        shop.classList.remove("hidden");
+      } else {
+        document.getElementById("err").style.display="block";
+        setTimeout(()=>document.getElementById("err").style.display="none",2000);
+      }
+    }
+
+    function orderNow(product,price,selectId){
+      const size=document.getElementById(selectId).value;
+      const msg=`Hello, I want to order ${product} (${size}, approx ₹${price}). Please confirm.`;
+      const wa=`https://wa.me/919730094835?text=${encodeURIComponent(msg)}`;
+      const mail=`mailto:aftermint97@gmail.com?subject=Order:%20${encodeURIComponent(product)}&body=${encodeURIComponent(msg)}`;
+      if(confirm("Do you want to place order on WhatsApp? Press Cancel for Email.")){
+        window.open(wa,"_blank");
+      } else {
+        window.location.href=mail;
+      }
+    }
+  </script>
+</body>
+</html>
